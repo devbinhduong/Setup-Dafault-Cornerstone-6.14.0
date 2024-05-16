@@ -39,6 +39,16 @@ $buttonStyle-primary-borderColor:            stencilColor("button--primary-backg
 $buttonStyle-primary-borderColorHover:       stencilColor("button--primary-backgroundColorHover");
 $buttonStyle-primary-borderColorActive:      stencilColor("button--primary-backgroundColorActive");
 
+$buttonStyle-secondary-color:                stencilColor("button--secondary-color");
+$buttonStyle-secondary-colorHover:           stencilColor("button--secondary-colorHover");
+$buttonStyle-secondary-colorActive:          stencilColor("button--secondary-colorActive");
+$buttonStyle-secondary-backgroundColor:       stencilColor("button--secondary-backgroundColor");
+$buttonStyle-secondary-backgroundColorHover:  stencilColor("button--secondary-backgroundColorHover");
+$buttonStyle-secondary-backgroundColorActive: stencilColor("button--secondary-backgroundColorActive");
+$buttonStyle-secondary-borderColor:          stencilColor("button--secondary-backgroundColor");
+$buttonStyle-secondary-borderColorHover:     stencilColor("button--secondary-backgroundColorHover");
+$buttonStyle-secondary-borderColorActive:    stencilColor("button--secondary-backgroundColorActive");
+
 $buttonStyle-disabled-color:                 stencilColor("button--disabled-color");
 $buttonStyle-disabled-colorHover:            null;
 $buttonStyle-disabled-colorActive:           null;

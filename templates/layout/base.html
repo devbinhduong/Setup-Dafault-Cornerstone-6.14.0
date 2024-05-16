@@ -47,8 +47,11 @@
         {{~inject 'carouselArrowAndDotAriaLabel' (lang 'carousel.arrow_and_dot_aria_label')}}
         {{~inject 'carouselActiveDotAriaLabel' (lang 'carousel.active_dot_aria_label')}}
         {{~inject 'carouselContentAnnounceMessage' (lang 'carousel.content_announce_message')}}
+        {{~inject 'themeSettings' theme_settings}}
+        {{~inject 'token' settings.storefront_api.token}}
+        {{~inject 'money' settings.money}}
     </head>
-    <body>
+    <body class="page-type-{{page_type}}">
         <svg data-src="{{cdn 'img/icon-sprite.svg'}}" class="icons-svg-sprite"></svg>
 
         {{> components/common/header }}
@@ -80,6 +83,8 @@
             }
         </script>
         <script async defer src="{{cdn 'assets/dist/theme-bundle.main.js' resourceHint='preload' as='script'}}" onload="onThemeBundleMain()"></script>
+
+        {{> components/custom/global/custom-global}}
 
         {{{footer.scripts}}}
     </body>

@@ -366,6 +366,9 @@
     "paymentbanners-proddetailspage-color": "white",
     "paymentbanners-proddetailspage-ratio": "8x1",
     "paymentbuttons-container": "medium",
+    "show_topPromotion": false,
+    "custom_add_to_cart_popup": "sidebar",
+    "enable_cart_sidebar": true,
     "supported_card_type_icons": [
       "american_express",
       "diners_club",

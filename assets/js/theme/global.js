@@ -12,6 +12,7 @@ import quickView from './global/quick-view';
 import cartPreview from './global/cart-preview';
 import carousel from './common/carousel';
 import svgInjector from './global/svg-injector';
+import customGlobal from './custom/customGlobal';
 
 export default class Global extends PageManager {
     onReady() {
@@ -25,5 +26,6 @@ export default class Global extends PageManager {
         menu();
         mobileMenuToggle();
         svgInjector();
+        customGlobal(this.context);
     }
 }

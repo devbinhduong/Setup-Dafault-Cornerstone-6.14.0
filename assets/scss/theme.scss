@@ -26,6 +26,7 @@
 //      - This enables the ability to "null" variables in the Stencil settings.
 //
 // -----------------------------------------------------------------------------
+@import "custom/customMixins";
 
 @import "settings/global/global"; // 1
 
@@ -77,3 +78,6 @@
 // -----------------------------------------------------------------------------
 
 @import "layouts/layouts"; // 1
+
+/* CSS for custom theme */
+@import "custom/customTheme";

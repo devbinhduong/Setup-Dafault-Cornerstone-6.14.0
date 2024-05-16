@@ -1,0 +1,463 @@
+:root {
+    --desktopCol: 4;
+    --tabletCol: 2;
+    --mobileCol: 1;
+    --desktopGap: 20px;
+    --tabletGap: 20px;
+    --mobileGap: 20px;
+}
+
+.background-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0;
+    z-index: -1;
+    display: none;
+    visibility: hidden;
+    transition: $anchor-transition;
+    background-color: rgba(59, 59, 59, .7);
+
+    .openSidebar &,
+    .openAuthSidebar &,
+    .has-openCartSidebar & {
+        z-index: 102;
+        opacity: 1;
+        display: block;
+        visibility: visible;
+    }
+}
+
+.openAuthSidebar {
+    overflow: hidden;
+
+    #custom-account-mobile {
+        right: 0;
+        z-index: 105;
+    }
+}
+
+/* ----------------- Load Animation ----------------------*/
+.no-js .custom-animation {
+    transform: translatey(0);
+}
+
+.custom-animation {
+    [data-step-animate], 
+    &[data-step-animate] {
+        transform: translatey(100px);
+    }
+}
+
+.js {
+    [data-step-animate] {
+        transition-property: transform, opacity;
+        transition-timing-function: ease;
+        transform: translatey(100px);
+        opacity: 0;
+
+        @for $i from 0 through 100 {
+            &[data-step-animate='#{$i}'] {
+                transition-delay: 0.1s + $i * 0.02;
+                transition-duration: 0.3s + $i * 0.1;
+            }
+        }
+    }
+    .animated {
+        [data-step-animate],
+        &[data-step-animate] {
+            transform: translatey(0);
+            opacity: 1;
+        }
+    }
+}
+
+@include smin-m {
+    /* ------------------ Hover Image Zoom ------------------------- */
+    .hover-image {
+        overflow: hidden;
+        cursor: pointer;
+
+        img {
+            transition: all 0.8s ease;
+        }
+
+        &:hover {
+            img {
+                transform: scale3d(1.1, 1.1, 1);
+            }
+        }
+    }
+
+    /* Image Effect Shine Cross */
+    .shine-effect {
+        &::after{
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            opacity: 0;
+            pointer-events: none;
+            transition: background-position 6s ease, opacity 300ms ease;
+            mix-blend-mode: overlay;
+            background-size: 400% 100%;
+            background-position: 90% 0;
+            background-repeat: no-repeat;
+            background-image: linear-gradient(135deg, #fff0 45%, #fff, #fff0 55%);
+        }
+        
+        &:hover {
+            &:after {
+                opacity: .4;
+                transition: background-position 1s ease, opacity 500ms ease;
+                background-position: left;
+                z-index: 2;
+            }
+        }
+    }
+    
+    /* ------------------ Hover Link ------------------------- */
+    .hover-link {
+        text-decoration: none;
+
+        > span:not(.icon):not(.navUser-icon) {
+            background: linear-gradient(90deg, currentColor 33.33333%,transparent 0 70%, currentColor 0) 50% 100%/300% 1px no-repeat;
+            transition: background .6s cubic-bezier(.52,.18,.45,1.4) 0s;
+        }
+
+        &:hover {
+            > span:not(.icon):not(.navUser-icon) {
+                background: linear-gradient(90deg, currentColor 33.33333%,transparent 0 70%, currentColor 0) 0% 100%/300% 1px no-repeat;
+            }
+        }
+    }
+}
+
+/* Flex Layout */
+.row {
+    --f-col: var(--rowDesktop);
+    --f-gap: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: calc(var(--f-gap) / -2);
+    margin-right: calc(var(--f-gap) / -2);
+
+    @include smax-m {
+        --f-col: var(--rowTablet);
+    }
+
+    @include smax-s {
+        --f-col: var(--rowMobile);
+    }
+
+    .col {
+        padding-left: calc(var(--f-gap) / 2);
+        padding-right: calc(var(--f-gap) / 2);
+        flex: 0 0 calc(100% / var(--f-col));
+        max-width: calc(100% / var(--f-col));
+    }
+}
+
+//
+// Grid Layout
+// -----------------------------------------------------------------------------
+.grid {
+    --colDesktop: var(--desktopCol);
+    --colTablet: var(--tabletCol);
+    --colMobile: var(--mobileCol);
+    display: grid;
+    grid-template-columns: repeat(var(--colDesktop), 1fr);
+    gap: var(--desktopGap);
+
+    @include smax-m {
+        grid-template-columns: repeat(var(--colTablet), 1fr);
+        gap: var(--tabletGap);
+    }
+
+    @include smax-s {
+        grid-template-columns: repeat(var(--colMobile), 1fr);
+        gap: var(--mobileGap);
+    }
+}
+
+//
+// Skeleton Loader
+// -----------------------------------------------------------------------------
+.skeleton-loader {
+    background: #f2f2f2;
+    background: linear-gradient(120deg, #f2f2f2 25%, #e6e6e6 37%, #f2f2f2 63%);
+    background-size: 200% 100%;
+    animation: skeleton-loading 4s infinite linear;
+}
+
+
+//
+// Custom Scrollbar
+//---------------------------------------------------------------------------- 
+.customScrollbar {
+    overflow-y: auto;
+
+    &::-webkit-scrollbar {
+        width: 4px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: #f5f5f5;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: #000000;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+        background: #555555;
+    }
+}
+
+// CSS for product skeleton
+// -----------------------------------------------------------------------------
+.productSkeleton {
+    &__list {
+        display: flex;
+        @include flex-layout(1, 0px);
+        
+        @include smin-xs {
+            @include flex-layout(2, 20px);
+        }
+
+        @include smin-s {
+            @include flex-layout(3, 20px);
+        }
+
+        @include smin-m {
+            @include flex-layout(4, 20px);
+        }
+
+        @include smin-l {
+            @include flex-layout(5, 20px);
+        }
+
+    }
+
+    &__item {
+        padding: 15px;
+
+        @include smax-l {
+            &:nth-child(n + 5) {
+                display: none;
+            }
+        }
+
+        @include smax-m {
+            &:nth-child(n + 4) {
+                display: none;
+            }
+        }
+
+        @include smax-s {
+            &:nth-child(n + 3) {
+                display: none;
+            }
+        }
+
+        @include smax-xs {
+            &:nth-child(n + 2) {
+                display: none;
+            }
+        }
+    }
+
+    &__image {
+        width: 100%;
+        height: 230px;
+    }
+
+    &__title {
+        height: 34px;
+        margin-top: 12px;
+        margin-bottom: 12px;
+    }
+
+    &__price {
+        height: 39px;
+        margin-bottom: 30px;
+    }
+
+    &__rating {
+        height: 24px;
+        width: 85px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+.home-button-call {
+    position: fixed;
+    right: 12px;
+    top: 495px;
+
+    @include square(79px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $color-custom-red;
+    border-radius: 50%;
+    z-index: 9;
+    transition: transform 0.1s ease-in-out;
+
+    @include smax-s {
+        top: 30%;
+        @include square(60px);
+    }
+
+    @include smax-xs {
+        top: 30%;
+        @include square(50px);
+    }
+
+    &:hover {
+        background-color: $color-custom-black;
+        animation: pulseAndVibrate 0.4s infinite;
+    }
+
+    .icon {
+        @include square(40px);
+
+        @include smax-s {
+            @include square(30px);
+        }
+
+        @include smax-xs {
+            @include square(25px);
+        }
+
+        svg {
+            fill: #ffffff;
+            transform: rotate(180deg) scale(1, -1);
+
+            use {
+                transform: translateX(6px);
+            }
+        }
+    }
+}
+
+
+//
+// View As Button Group
+//---------------------------------------------------------------------------- 
+.view-as-btn {
+    font-size: 0;
+    display: inline-block;
+    vertical-align: middle;
+    > a {
+        height: 40px;
+        min-width: 34px;
+        margin-left: 5px;
+        position: relative;
+        vertical-align: top;
+        display: inline-block;
+        border: 1px solid #dcdcdc;
+        box-sizing: content-box;
+
+        &:first-child {
+            margin-left: 0;
+        }
+        &:before {
+            top: 4px;
+            left: 6px;
+            content: "";
+            position: absolute;
+            background: #dcdcdc;
+            transition: all 0.3s ease;
+        }
+    }
+    > #list-view {
+        &:before {
+            width: 22px;
+            height: 6px;
+            box-shadow: 0px 9px 0 #dcdcdc, 0px 17px 0 #dcdcdc, 0px 26px 0 #dcdcdc;
+        }
+        .productGrid--maxCol1 & {
+            border-color: #323232;
+            &:before {
+                background-color: #323232;
+                box-shadow: 0px 9px 0 #323232, 0px 17px 0 #323232, 0px 26px 0 #323232;
+            }
+        }
+    }
+    > #grid-view-3 {
+        width: 35px;
+        display: none;
+        &:before {
+            left: 5px;
+            width: 6px;
+            height: 32px;
+            box-shadow: 9px 0 0 #dcdcdc, 18px 0 0 #dcdcdc;
+        }
+        @include breakpoint("small") {
+            display: inline-block;
+            .productGrid--maxCol5 &,
+            .productGrid--maxCol3 & {
+                border-color: #323232;
+                &:before {
+                    background-color: #323232;
+                    box-shadow: 9px 0 0 #323232, 18px 0 0 #323232;
+                }
+            }
+        }
+        @media (min-width: 993px) {
+            .productGrid--maxCol5 & {
+                border-color: #dcdcdc;
+                &:before {
+                    background-color: #dcdcdc;
+                    box-shadow: 9px 0 0 #dcdcdc, 18px 0 0 #dcdcdc;
+                }
+            }
+        }
+    }
+
+    > #grid-view-4 {
+        width: 45px;
+        display: none;
+        &:before {
+            width: 6px;
+            height: 32px;
+            box-shadow: 9px 0 0 #dcdcdc, 18px 0 0 #dcdcdc, 27px 0 0 #dcdcdc;
+        }
+        @media (min-width: 1025px) {
+            display: inline-block;
+            .productGrid--maxCol4 & {
+                border-color: #323232;
+                &:before {
+                    background-color: #323232;
+                    box-shadow: 9px 0 0 #323232, 18px 0 0 #323232, 27px 0 0 #323232;
+                }
+            }
+        }
+    }
+
+    > #grid-view-5 {
+        width: 55px;
+        display: none;
+        &:before {
+            width: 7px;
+            height: 32px;
+            box-shadow: 9px 0 0 #dcdcdc, 18px 0 0 #dcdcdc, 27px 0 0 #dcdcdc, 36px 0 0 #dcdcdc;
+        }
+        @media (min-width: 1025px) {
+            display: inline-block;
+            .productGrid--maxCol5 & {
+                border-color: #323232;
+                &:before {
+                    background-color: #323232;
+                    box-shadow: 9px 0 0 #323232, 18px 0 0 #323232, 27px 0 0 #323232, 36px 0 0 #323232;
+                }
+            }
+        }
+    }
+}

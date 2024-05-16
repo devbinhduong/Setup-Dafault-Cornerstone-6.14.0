@@ -2,16 +2,14 @@
 // GRID (CSS)
 // =============================================================================
 
-
 .container {
-    margin-left: auto;
-    margin-right: auto;
-    max-width: layout("max") + ($container-padding * 4);
-    padding: 0 $container-padding;
     position: relative;
-    width: layout("fixed");
+    width: 100%;
+    max-width: 1500px;
+    padding: 0 15px;
+    margin-inline: auto;
 
-    @include breakpoint("large") {
-        padding: 0 ($container-padding * 4);
+    &.container--full {
+        max-width: 100%;
     }
 }
